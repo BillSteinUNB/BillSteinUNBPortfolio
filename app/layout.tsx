@@ -2,12 +2,15 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../styles/globals.css";
 import { ThemeProvider } from "@/components/providers";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import { SITE_TITLE, SITE_DESCRIPTION } from "@/lib/constants";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Developer Portfolio",
-  description: "A portfolio website showcasing projects and skills",
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
 };
 
 export default function RootLayout({
@@ -24,7 +27,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <div className="relative flex min-h-screen flex-col">
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
         </ThemeProvider>
       </body>
     </html>
