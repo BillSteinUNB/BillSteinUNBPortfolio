@@ -60,9 +60,9 @@ export function Hero() {
             variants={item}
             className="max-w-2xl text-lg md:text-xl text-muted-foreground"
           >
-            Crafting elegant solutions to complex problems. Specializing in
-            building exceptional digital experiences with modern web
-            technologies.
+            5th year Computer Science student at the University of New
+            Brunswick, specializing in full-stack development and building
+            exceptional digital experiences with modern web technologies.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -92,9 +92,9 @@ export function Hero() {
               asChild
               className="min-w-[160px]"
             >
-              <a href="/cv.pdf" download>
+              <a href="/resume/Bill_Stein_Resume.pdf" download>
                 <Download className="mr-2 h-5 w-5" />
-                Download CV
+                Download Resume
               </a>
             </Button>
           </motion.div>

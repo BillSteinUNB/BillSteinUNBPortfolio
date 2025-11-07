@@ -122,7 +122,7 @@ export function Contact() {
                   <div>
                     <div className="font-medium text-sm mb-1">Location</div>
                     <div className="text-sm text-muted-foreground">
-                      New York, USA
+                      New Brunswick, Canada
                     </div>
                   </div>
                 </div>

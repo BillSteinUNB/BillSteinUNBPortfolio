@@ -60,25 +60,25 @@ export function About() {
           >
             <div className="space-y-4 text-lg text-muted-foreground">
               <p>
-                I'm a passionate software engineer with over 7 years of
-                experience building web applications that make a difference.
-                My journey in tech started with a curiosity about how things
-                work, and has evolved into a career dedicated to crafting
-                elegant, user-centric solutions.
+                I'm a passionate full-stack developer currently in my 5th year
+                of Computer Science at the University of New Brunswick. My
+                journey in tech started with a curiosity about how things work,
+                and has evolved into a dedication to crafting elegant,
+                user-centric solutions that solve real-world problems.
               </p>
 
               <p>
-                I specialize in modern JavaScript frameworks, particularly
-                React and Next.js, and have a strong foundation in backend
+                I specialize in modern JavaScript frameworks, particularly React
+                and Next.js, and have a strong foundation in backend
                 technologies. I believe in writing clean, maintainable code and
                 following best practices to ensure scalability and performance.
               </p>
 
               <p>
-                When I'm not coding, you'll find me exploring new technologies,
-                contributing to open-source projects, or sharing knowledge with
-                the developer community. I'm always eager to take on new
-                challenges and collaborate on innovative projects.
+                When I'm not coding or studying, you'll find me exploring new
+                technologies, contributing to open-source projects, or sharing
+                knowledge with the developer community. I'm always eager to take
+                on new challenges and collaborate on innovative projects.
               </p>
             </div>
           </motion.div>
