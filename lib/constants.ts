@@ -1,24 +1,24 @@
-export const SITE_NAME = "Jane Doe";
-export const SITE_TITLE = "Jane Doe - Software Engineer";
+export const SITE_NAME = "Bill Stein";
+export const SITE_TITLE = "Bill Stein - Full-Stack Developer";
 export const SITE_DESCRIPTION =
-  "Software Engineer specializing in building exceptional digital experiences. Based in New York.";
-export const PROFESSIONAL_TITLE = "Software Engineer";
-export const EMAIL = "contact@janedoe.com";
+  "Full-Stack Developer and Computer Science student at the University of New Brunswick, specializing in building exceptional digital experiences.";
+export const PROFESSIONAL_TITLE = "Full-Stack Developer";
+export const EMAIL = "Contact@BillStein.Dev";
 
 export const SOCIAL_LINKS = [
   {
     name: "GitHub",
-    url: "https://github.com",
+    url: "https://github.com/BillSteinUNB",
     icon: "github",
   },
   {
     name: "LinkedIn",
-    url: "https://linkedin.com",
+    url: "https://www.linkedin.com/in/billstein3714982",
     icon: "linkedin",
   },
   {
     name: "Twitter",
-    url: "https://twitter.com",
+    url: "/",
     icon: "twitter",
   },
 ] as const;
