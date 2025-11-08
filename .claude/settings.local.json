@@ -6,7 +6,9 @@
       "Bash(npm install:*)",
       "Bash(npm run dev:*)",
       "Bash(node:*)",
-      "Bash(npx tsc --noEmit)"
+      "Bash(npx tsc --noEmit)",
+      "Bash(find:*)",
+      "Bash(npx eslint:*)"
     ],
     "deny": [],
     "ask": []
