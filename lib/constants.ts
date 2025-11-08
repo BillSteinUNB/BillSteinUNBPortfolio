@@ -3,7 +3,7 @@ export const SITE_TITLE = "Bill Stein - Full-Stack Developer";
 export const SITE_DESCRIPTION =
   "Full-Stack Developer and Computer Science student at the University of New Brunswick, specializing in building exceptional digital experiences.";
 export const PROFESSIONAL_TITLE = "Full-Stack Developer";
-export const EMAIL = "Contact@BillStein.Dev";
+export const EMAIL = "contact@billstein.dev";
 
 export const SOCIAL_LINKS = [
   {
