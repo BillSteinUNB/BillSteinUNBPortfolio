@@ -1,7 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import { Code2, Briefcase, Award } from "lucide-react";

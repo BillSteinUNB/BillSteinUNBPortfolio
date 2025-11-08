@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { z } from "zod";
+import DOMPurify from "isomorphic-dompurify";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY || "");
 
 const contactFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -12,6 +13,14 @@ const contactFormSchema = z.object({
 
 export async function POST(request: Request) {
   try {
+    // Check if Resend API key is configured
+    if (!process.env.RESEND_API_KEY) {
+      return NextResponse.json(
+        { error: "Email service not configured. Please add RESEND_API_KEY to environment variables." },
+        { status: 503 }
+      );
+    }
+
     const body = await request.json();
 
     // Validate request body
@@ -26,18 +35,23 @@ export async function POST(request: Request) {
 
     const { name, email, message } = validationResult.data;
 
+    // Sanitize all user inputs to prevent XSS attacks
+    const sanitizedName = DOMPurify.sanitize(name);
+    const sanitizedEmail = DOMPurify.sanitize(email);
+    const sanitizedMessage = DOMPurify.sanitize(message.replace(/\n/g, "<br>"));
+
     // Send email using Resend
     const data = await resend.emails.send({
       from: "Portfolio Contact <onboarding@resend.dev>",
-      to: process.env.CONTACT_EMAIL || "contact@janedoe.com",
+      to: process.env.CONTACT_EMAIL || "contact@billstein.dev",
       reply_to: email,
-      subject: `New Contact Form Submission from ${name}`,
+      subject: `New Contact Form Submission from ${sanitizedName}`,
       html: `
         <h2>New Contact Form Submission</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Name:</strong> ${sanitizedName}</p>
+        <p><strong>Email:</strong> ${sanitizedEmail}</p>
         <p><strong>Message:</strong></p>
-        <p>${message.replace(/\n/g, "<br>")}</p>
+        <p>${sanitizedMessage}</p>
       `,
     });
 
@@ -46,7 +60,11 @@ export async function POST(request: Request) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("Contact form error:", error);
+    // Log errors in development only
+    if (process.env.NODE_ENV === 'development') {
+      console.error("Contact form error:", error);
+    }
+    // TODO: Add error tracking service for production monitoring
     return NextResponse.json(
       { error: "Failed to send email. Please try again later." },
       { status: 500 }
