@@ -5,7 +5,7 @@ import { ThemeProvider } from "@/components/providers";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Terminal } from "@/components/ui/Terminal";
-import { BackgroundDemo } from "@/components/ui/BackgroundDemo";
+import { AnimatedBackground } from "@/components/ui/AnimatedBackground";
 import { SITE_TITLE, SITE_DESCRIPTION, SITE_NAME, EMAIL, PROFESSIONAL_TITLE, SOCIAL_LINKS } from "@/lib/constants";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -106,7 +106,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <BackgroundDemo />
+          <AnimatedBackground />
           <div className="relative flex min-h-screen flex-col">
             <Header />
             <main id="main-content" className="flex-1">{children}</main>
