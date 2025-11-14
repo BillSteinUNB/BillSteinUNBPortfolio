@@ -28,9 +28,6 @@ export function Hero() {
 
   return (
     <section className="relative min-h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/10 via-background to-background" />
-
       <motion.div
         variants={container}
         initial="hidden"
