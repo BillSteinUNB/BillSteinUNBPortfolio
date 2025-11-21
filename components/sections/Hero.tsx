@@ -58,8 +58,8 @@ export function Hero() {
             className="max-w-2xl text-lg md:text-xl text-muted-foreground"
           >
             5th year Computer Science student at the University of New
-            Brunswick, specializing in full-stack development and building
-            exceptional digital experiences with modern web technologies.
+            Brunswick, passionate about solving problems and building solutions
+            across the full technology stack—from frontend to backend to IT infrastructure.
           </motion.p>
 
           {/* CTA Buttons */}
