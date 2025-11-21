@@ -44,9 +44,9 @@ export function About() {
 
             {/* Stats Cards */}
             <div className="grid grid-cols-3 gap-4 mt-8">
-              <StatCard icon={Code2} value={7} suffix="+" label="Years Experience" />
-              <StatCard icon={Briefcase} value={50} suffix="+" label="Projects Completed" />
-              <StatCard icon={Award} value={15} suffix="+" label="Happy Clients" />
+              <StatCard icon={Code2} value={5} suffix="+" label="Years Education" />
+              <StatCard icon={Briefcase} value={10} suffix="+" label="Projects Completed" />
+              <StatCard icon={Award} value={3} suffix="" label="Tech Domains" />
             </div>
           </motion.div>
 
@@ -59,25 +59,34 @@ export function About() {
           >
             <div className="space-y-4 text-lg text-muted-foreground">
               <p>
-                I'm a passionate full-stack developer currently in my 5th year
-                of Computer Science at the University of New Brunswick. My
-                journey in tech started with a curiosity about how things work,
-                and has evolved into a dedication to crafting elegant,
-                user-centric solutions that solve real-world problems.
+                Originally from Stephenville, Newfoundland, I'm a 5th year Computer Science student
+                at the University of New Brunswick, combining 4 academic years with a full year of
+                co-op experience. I've always enjoyed problem solving and building things—and more
+                importantly, fixing them when they break. If a solution doesn't exist the way I like
+                it, I don't mind creating my own.
               </p>
 
               <p>
-                I specialize in modern JavaScript frameworks, particularly React
-                and Next.js, and have a strong foundation in backend
-                technologies. I believe in writing clean, maintainable code and
-                following best practices to ensure scalability and performance.
+                During my time at UNB, I balanced being a university athlete for 4 years while
+                diving deep into tech. I've had the opportunity to work with a professor on
+                AI/ML language dissecting models, which was an incredibly rewarding experience.
+                My professional journey spans full-stack development, IT consulting, and even
+                tree planting—each teaching me valuable lessons about persistence and adaptability.
               </p>
 
               <p>
-                When I'm not coding or studying, you'll find me exploring new
-                technologies, contributing to open-source projects, or sharing
-                knowledge with the developer community. I'm always eager to take
-                on new challenges and collaborate on innovative projects.
+                What makes my approach unique? I don't claim to know everything or to be the
+                best at anything. But I will attempt anything and learn step by step if I don't
+                know how. Whether it's front-end development, back-end systems, IT infrastructure,
+                or entirely new domains, I'm driven by curiosity and a willingness to tackle
+                challenges head-on.
+              </p>
+
+              <p>
+                When I'm not coding or solving tech problems, you'll find me enjoying the winter
+                weather or spending time with my dog. I've found that the same patience and
+                problem-solving mindset that works in development applies just as well to life
+                outside of tech.
               </p>
             </div>
           </motion.div>
