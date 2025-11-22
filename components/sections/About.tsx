@@ -34,8 +34,8 @@ export function About() {
           >
             <div className="relative aspect-square max-w-md mx-auto rounded-2xl overflow-hidden border-4 border-primary/10">
               <Image
-                src="https://via.placeholder.com/600x600"
-                alt="Profile photo"
+                src="/images/profile-dog.jpg"
+                alt="Bill with his dog - Profile photo"
                 fill
                 className="object-cover"
                 priority
