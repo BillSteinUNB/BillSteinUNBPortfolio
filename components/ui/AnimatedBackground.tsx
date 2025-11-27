@@ -1,48 +1,24 @@
 "use client";
 
-import { motion } from "framer-motion";
-
 export function AnimatedBackground() {
   return (
-    <div className="fixed inset-0 -z-10 overflow-hidden">
-      {/* Animated Mesh Gradient */}
-      <motion.div
-        className="absolute inset-0"
+    <div className="fixed inset-0 -z-10 overflow-hidden bg-background">
+      {/* Dot Grid Pattern */}
+      <div
+        className="absolute inset-0 opacity-[0.15] dark:opacity-[0.08]"
         style={{
-          background: `
-            radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.25) 0%, transparent 50%),
-            radial-gradient(circle at 40% 80%, rgba(6, 182, 212, 0.25) 0%, transparent 50%)
-          `,
-        }}
-        animate={{
-          background: [
-            `radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
-             radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.25) 0%, transparent 50%),
-             radial-gradient(circle at 40% 80%, rgba(6, 182, 212, 0.25) 0%, transparent 50%)`,
-
-            `radial-gradient(circle at 80% 30%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
-             radial-gradient(circle at 30% 70%, rgba(139, 92, 246, 0.25) 0%, transparent 50%),
-             radial-gradient(circle at 60% 20%, rgba(6, 182, 212, 0.25) 0%, transparent 50%)`,
-
-            `radial-gradient(circle at 50% 80%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
-             radial-gradient(circle at 20% 40%, rgba(139, 92, 246, 0.25) 0%, transparent 50%),
-             radial-gradient(circle at 70% 60%, rgba(6, 182, 212, 0.25) 0%, transparent 50%)`,
-
-            `radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
-             radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.25) 0%, transparent 50%),
-             radial-gradient(circle at 40% 80%, rgba(6, 182, 212, 0.25) 0%, transparent 50%)`,
-          ],
-        }}
-        transition={{
-          duration: 30,
-          repeat: Infinity,
-          ease: "linear",
+          backgroundImage: `radial-gradient(circle at center, hsl(var(--foreground)) 0.5px, transparent 0.5px)`,
+          backgroundSize: '24px 24px',
         }}
       />
 
-      {/* Blur overlay for smooth mesh effect */}
-      <div className="absolute inset-0 backdrop-blur-[80px]" />
+      {/* Subtle radial glow in top right - adds depth without blur */}
+      <div
+        className="absolute top-0 right-0 w-[800px] h-[800px] opacity-[0.15] dark:opacity-[0.08]"
+        style={{
+          background: 'radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, transparent 70%)',
+        }}
+      />
     </div>
   );
 }
