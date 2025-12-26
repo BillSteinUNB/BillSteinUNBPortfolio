@@ -21,8 +21,10 @@ export interface Project {
   description: string;
   technologies: string[];
   imageUrl: string;
-  demoUrl: string;
-  repoUrl: string;
+  demoUrl: string | null;
+  demoLabel?: string;
+  repoUrl: string | null;
+  status?: "live" | "testflight" | "development" | "gallery";
 }
 
 export interface Experience {

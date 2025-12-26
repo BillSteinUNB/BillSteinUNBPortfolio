@@ -34,8 +34,8 @@ export function About() {
           >
             <div className="relative aspect-square max-w-md mx-auto rounded-2xl overflow-hidden border-4 border-primary/10">
               <Image
-                src="/images/dog.jpg"
-                alt="Bill with his dog - Profile photo"
+                src="/images/profile.jpg"
+                alt="Bill Stein - Full-Stack Developer"
                 fill
                 className="object-cover"
                 priority

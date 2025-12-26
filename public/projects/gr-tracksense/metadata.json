@@ -1,0 +1,5 @@
+{
+  "name": "GR TrackSense",
+  "description": "High-performance real-time telemetry and predictive analytics platform for Toyota GR Hackathon.",
+  "requestFramePermissions": []
+}

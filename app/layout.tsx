@@ -27,7 +27,7 @@ const jsonLd = {
     addressRegion: 'New Brunswick',
     addressCountry: 'CA'
   },
-  sameAs: SOCIAL_LINKS.filter(link => link.url !== '/').map(link => link.url),
+  sameAs: SOCIAL_LINKS.map(link => link.url),
   knowsAbout: [
     'Web Development',
     'React',

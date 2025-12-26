@@ -144,9 +144,7 @@ export function Terminal() {
       case "social":
         addLine("output", "\nSocial Media:");
         SOCIAL_LINKS.forEach((link) => {
-          if (link.url !== "/") {
-            addLine("output", `  ${link.name}: ${link.url}`);
-          }
+          addLine("output", `  ${link.name}: ${link.url}`);
         });
         addLine("output", "");
         break;

@@ -3,7 +3,12 @@ import { Resend } from "resend";
 import { z } from "zod";
 import DOMPurify from "isomorphic-dompurify";
 
-const resend = new Resend(process.env.RESEND_API_KEY || "");
+// Lazily initialize Resend to avoid build-time errors when API key is not set
+const getResendClient = () => {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) return null;
+  return new Resend(apiKey);
+};
 
 const contactFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -14,7 +19,8 @@ const contactFormSchema = z.object({
 export async function POST(request: Request) {
   try {
     // Check if Resend API key is configured
-    if (!process.env.RESEND_API_KEY) {
+    const resend = getResendClient();
+    if (!resend) {
       return NextResponse.json(
         { error: "Email service not configured. Please add RESEND_API_KEY to environment variables." },
         { status: 503 }
