@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { TelemetryData, LogEntry } from '../types';
 import { FUJI_SPEEDWAY_PATH } from '../constants';
-import { AlertTriangle, Flag, Terminal, Activity, Zap, Wind } from 'lucide-react';
-import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
+import { Terminal } from 'lucide-react';
+import { LineChart, Line, YAxis, ResponsiveContainer } from 'recharts';
 
 // --- SUB-COMPONENTS ---
 
