@@ -26,12 +26,12 @@ const FRONTEND_PROJECTS = [
     tags: ["React", "WebGL", "Three.js", "TypeScript"],
   },
   {
-    id: "mcp-2099-portfolio",
-    title: "MCP-2099 Portfolio",
-    description: "A hyper-realistic, retro-futuristic developer portfolio featuring WebGL, GSAP animations, and a cyberpunk aesthetic.",
+    id: "the-saltwater-inn",
+    title: "The Saltwater Inn",
+    description: "A visually stunning, warm, and inviting landing page for The Saltwater Inn in New Brunswick, featuring a Gemini-powered local concierge.",
     image: "/images/projects/frontend-showcase-placeholder.svg",
     liveUrl: "https://frontend-projects3.vercel.app/",
-    tags: ["React", "GSAP", "WebGL", "Cyberpunk"],
+    tags: ["React", "Gemini AI", "TypeScript", "Hospitality"],
   },
   {
     id: "null-void",
@@ -42,12 +42,12 @@ const FRONTEND_PROJECTS = [
     tags: ["React", "ASCII Art", "Minimalist", "Generative"],
   },
   {
-    id: "the-saltwater-inn",
-    title: "The Saltwater Inn",
-    description: "A visually stunning, warm, and inviting landing page for The Saltwater Inn in New Brunswick, featuring a Gemini-powered local concierge.",
+    id: "mcp-2099-portfolio",
+    title: "MCP-2099 Portfolio",
+    description: "A hyper-realistic, retro-futuristic developer portfolio featuring WebGL, GSAP animations, and a cyberpunk aesthetic.",
     image: "/images/projects/frontend-showcase-placeholder.svg",
     liveUrl: "https://frontend-projects5.vercel.app/",
-    tags: ["React", "Gemini AI", "TypeScript", "Hospitality"],
+    tags: ["React", "GSAP", "WebGL", "Cyberpunk"],
   },
 ];
 

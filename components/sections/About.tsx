@@ -32,18 +32,29 @@ export function About() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="relative"
           >
-            <div className="relative aspect-square max-w-md mx-auto rounded-2xl overflow-hidden border-4 border-primary/10">
-              <Image
-                src="/images/profile.jpg"
-                alt="Bill Stein - Full-Stack Developer"
-                fill
-                className="object-cover"
-                priority
-              />
+            <div className="relative max-w-md mx-auto mb-12">
+              <div className="relative aspect-square rounded-2xl overflow-hidden border-4 border-primary/10 bg-muted">
+                <Image
+                  src="/images/profile.jpg"
+                  alt="Bill Stein - Full-Stack Developer"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+              
+              <div className="absolute -bottom-6 -right-6 w-32 h-32 md:w-40 md:h-40 rounded-2xl overflow-hidden border-4 border-background shadow-2xl rotate-6 transition-transform hover:rotate-3 hover:scale-105 duration-300">
+                <Image
+                  src="/images/dog.jpg"
+                  alt="My loyal coding companion"
+                  fill
+                  className="object-cover"
+                />
+              </div>
             </div>
 
             {/* Stats Cards */}
-            <div className="grid grid-cols-3 gap-4 mt-8">
+            <div className="grid grid-cols-3 gap-4">
               <StatCard icon={Code2} value={5} suffix="+" label="Years Education" />
               <StatCard icon={Briefcase} value={10} suffix="+" label="Projects Completed" />
               <StatCard icon={Award} value={3} suffix="" label="Tech Domains" />

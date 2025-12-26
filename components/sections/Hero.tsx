@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { ArrowDown, Download, Mail } from "lucide-react";
 import { SITE_NAME, PROFESSIONAL_TITLE } from "@/lib/constants";
 import { Button } from "@/components/ui/Button";
@@ -50,6 +51,19 @@ export function Hero() {
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-primary">
               {PROFESSIONAL_TITLE}
             </h2>
+          </motion.div>
+
+          {/* Profile Photo */}
+          <motion.div variants={item} className="relative">
+            <div className="relative w-24 h-24 md:w-32 md:h-32 mx-auto rounded-full overflow-hidden border-4 border-background shadow-xl ring-1 ring-primary/20">
+              <Image
+                src="/images/profile.jpg"
+                alt="Bill Stein"
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
           </motion.div>
 
           {/* Subtitle */}
