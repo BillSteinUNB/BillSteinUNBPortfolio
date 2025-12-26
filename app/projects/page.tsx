@@ -38,7 +38,7 @@ const FRONTEND_PROJECTS = [
     title: "NULL_VOID",
     description: "A white minimalist brutalist ASCII portfolio and generative design studio experiment.",
     image: "/images/projects/frontend-showcase-placeholder.svg",
-    liveUrl: "https://frontend-projects4.vercel.app/",
+    liveUrl: "https://frontend-projects4-4e10num70-billsteinunbs-projects.vercel.app/",
     tags: ["React", "ASCII Art", "Minimalist", "Generative"],
   },
   {
