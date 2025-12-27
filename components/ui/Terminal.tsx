@@ -101,9 +101,9 @@ export function Terminal() {
       case "skills":
         addLine("output", "\nTechnical Skills:");
         SKILLS.forEach((category) => {
-          addLine("output", `\n${category.category}:`);
-          category.items.forEach((skill) => {
-            addLine("output", `  • ${skill.name}`);
+          addLine("output", `\n${category.title}:`);
+          category.skills.forEach((skill) => {
+            addLine("output", `  • ${skill.name} (${skill.level}%)`);
           });
         });
         addLine("output", "");
