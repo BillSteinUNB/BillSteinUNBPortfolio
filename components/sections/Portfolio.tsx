@@ -164,7 +164,7 @@ export function Portfolio() {
                           rel={project.demoUrl.startsWith("http") ? "noopener noreferrer" : undefined}
                         >
                           {getDemoIcon(project.status)}
-                          {project.demoLabel || "Demo"}
+                          {"demoLabel" in project ? project.demoLabel : "Demo"}
                         </Link>
                       </Button>
                     )}

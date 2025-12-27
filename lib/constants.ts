@@ -119,7 +119,7 @@ export const PROJECTS = [
       "APIs",
     ],
     imageUrl: "/images/projects/BettingDashboard.png",
-    demoUrl: null,
+    demoUrl: "https://betting-dashboard-sand.vercel.app/",
     repoUrl: "https://github.com/BillSteinUNB/bettingDashboard",
     status: "development" as const,
   },
