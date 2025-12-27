@@ -19,36 +19,45 @@ export const AnimatedBackground = memo(function AnimatedBackground() {
     >
       {/* Blob 1 - Blue */}
       <motion.div
-        className="absolute top-0 -left-4 w-72 h-72 md:w-96 md:h-96 bg-blue-500/20 rounded-full mix-blend-multiply filter blur-2xl md:blur-3xl"
-        style={{ willChange: "transform" }}
+        className="absolute top-1/4 -left-20 w-[500px] h-[500px] md:w-[600px] md:h-[600px] rounded-full filter blur-3xl opacity-30"
+        style={{ 
+          willChange: "transform",
+          background: "radial-gradient(circle, rgba(59, 130, 246, 0.8) 0%, transparent 70%)",
+        }}
         animate={
           shouldReduceMotion
             ? { x: 0, y: 0 }
-            : { x: [0, 100, 0], y: [0, -100, 0] }
+            : { x: [0, 100, 0], y: [0, -50, 0] }
         }
         transition={blobTransition(20)}
       />
 
       {/* Blob 2 - Purple */}
       <motion.div
-        className="absolute top-0 right-4 w-72 h-72 md:w-96 md:h-96 bg-purple-500/20 rounded-full mix-blend-multiply filter blur-2xl md:blur-3xl"
-        style={{ willChange: "transform" }}
+        className="absolute top-1/3 -right-20 w-[500px] h-[500px] md:w-[600px] md:h-[600px] rounded-full filter blur-3xl opacity-30"
+        style={{ 
+          willChange: "transform",
+          background: "radial-gradient(circle, rgba(168, 85, 247, 0.8) 0%, transparent 70%)",
+        }}
         animate={
           shouldReduceMotion
             ? { x: 0, y: 0 }
-            : { x: [0, -100, 0], y: [0, 100, 0] }
+            : { x: [0, -80, 0], y: [0, 100, 0] }
         }
         transition={blobTransition(25)}
       />
 
       {/* Blob 3 - Cyan */}
       <motion.div
-        className="absolute -bottom-8 left-20 w-72 h-72 md:w-96 md:h-96 bg-cyan-500/20 rounded-full mix-blend-multiply filter blur-2xl md:blur-3xl"
-        style={{ willChange: "transform" }}
+        className="absolute -bottom-32 left-1/4 w-[500px] h-[500px] md:w-[600px] md:h-[600px] rounded-full filter blur-3xl opacity-25"
+        style={{ 
+          willChange: "transform",
+          background: "radial-gradient(circle, rgba(34, 211, 238, 0.8) 0%, transparent 70%)",
+        }}
         animate={
           shouldReduceMotion
             ? { x: 0, y: 0 }
-            : { x: [0, 50, 0], y: [0, -50, 0] }
+            : { x: [0, 50, 0], y: [0, -60, 0] }
         }
         transition={blobTransition(18)}
       />
@@ -56,7 +65,7 @@ export const AnimatedBackground = memo(function AnimatedBackground() {
       {/* Noise texture */}
       {!shouldReduceMotion && (
         <svg
-          className="absolute inset-0 w-full h-full opacity-[0.12]"
+          className="absolute inset-0 w-full h-full opacity-[0.08]"
           focusable="false"
         >
           <defs>
