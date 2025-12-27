@@ -89,7 +89,7 @@ export const PROJECTS = [
       "iOS",
       "Android",
     ],
-    imageUrl: "/images/projects/boring-app-placeholder.svg",
+    imageUrl: "/images/projects/BoringApp.png",
     demoUrl: null,
     repoUrl: "https://github.com/BillSteinUNB/Boring-App",
     status: "development" as const,

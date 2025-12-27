@@ -91,7 +91,7 @@ export function Portfolio() {
                       src={project.imageUrl}
                       alt={project.title}
                       fill
-                      className="object-cover transition-transform duration-300 hover:scale-105"
+                      className="object-cover scale-90 transition-transform duration-300 hover:scale-95"
                     />
                     {project.status && (
                       <div className="absolute top-3 right-3">
