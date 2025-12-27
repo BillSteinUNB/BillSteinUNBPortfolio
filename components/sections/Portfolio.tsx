@@ -86,12 +86,12 @@ export function Portfolio() {
                 className="h-full"
               >
                 <Card className="h-full flex flex-col overflow-hidden">
-                  <div className="relative h-48 w-full overflow-hidden">
+                  <div className="relative aspect-video w-full overflow-hidden">
                     <Image
                       src={project.imageUrl}
                       alt={project.title}
                       fill
-                      className="object-fill transition-transform duration-300 hover:scale-105"
+                      className="object-cover transition-transform duration-300 hover:scale-105"
                     />
                     {project.status && (
                       <div className="absolute top-3 right-3">
