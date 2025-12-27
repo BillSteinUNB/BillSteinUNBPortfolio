@@ -21,6 +21,7 @@ export interface Project {
   description: string;
   technologies: string[];
   imageUrl: string;
+  showcaseImages?: string[];
   demoUrl: string | null;
   demoLabel?: string;
   repoUrl: string | null;

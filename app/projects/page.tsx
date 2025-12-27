@@ -49,6 +49,22 @@ const FRONTEND_PROJECTS = [
     liveUrl: "https://mcp2099-portfolio.vercel.app/",
     tags: ["React", "GSAP", "WebGL", "Cyberpunk"],
   },
+  {
+    id: "sweet-haven",
+    title: "Sweet Haven",
+    description: "A charming bakery website with warm aesthetics and delightful user experience.",
+    image: "/images/projects/showcase/SweetHaven.png",
+    liveUrl: "https://sweethaven-seven.vercel.app/",
+    tags: ["React", "TypeScript", "UI/UX", "E-commerce"],
+  },
+  {
+    id: "vault",
+    title: "Vault",
+    description: "A secure and modern password manager interface with sleek design.",
+    image: "/images/projects/showcase/Vault.png",
+    liveUrl: "https://vault-pi-sandy.vercel.app/",
+    tags: ["React", "TypeScript", "Security", "UI/UX"],
+  },
 ];
 
 export default function ProjectsGalleryPage() {

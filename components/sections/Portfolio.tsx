@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ExternalLink, Github, Smartphone, Layout } from "lucide-react";
@@ -24,6 +24,40 @@ const statusConfig = {
   development: { label: "In Development", className: "bg-yellow-500/10 text-yellow-600 border-yellow-500/20" },
   gallery: { label: "Collection", className: "bg-purple-500/10 text-purple-600 border-purple-500/20" },
 };
+
+function CyclingImage({ images, alt }: { images: string[]; alt: string }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    if (images.length <= 1) return;
+    
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [images.length]);
+
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={currentIndex}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.5 }}
+        className="absolute inset-0"
+      >
+        <Image
+          src={images[currentIndex]}
+          alt={alt}
+          fill
+          className="object-cover transition-transform duration-300 hover:scale-105"
+        />
+      </motion.div>
+    </AnimatePresence>
+  );
+}
 
 export function Portfolio() {
   const ref = useRef(null);
@@ -87,14 +121,18 @@ export function Portfolio() {
               >
                 <Card className="h-full flex flex-col overflow-hidden">
                   <div className="relative aspect-video w-full overflow-hidden">
-                    <Image
-                      src={project.imageUrl}
-                      alt={project.title}
-                      fill
-                      className="object-cover transition-transform duration-300 hover:scale-105"
-                    />
+                    {"showcaseImages" in project && project.showcaseImages ? (
+                      <CyclingImage images={[...project.showcaseImages]} alt={project.title} />
+                    ) : (
+                      <Image
+                        src={project.imageUrl}
+                        alt={project.title}
+                        fill
+                        className="object-cover transition-transform duration-300 hover:scale-105"
+                      />
+                    )}
                     {project.status && (
-                      <div className="absolute top-3 right-3">
+                      <div className="absolute top-3 right-3 z-10">
                         <span className={`px-2 py-1 text-xs font-medium rounded-full border ${statusConfig[project.status].className}`}>
                           {statusConfig[project.status].label}
                         </span>
