@@ -118,7 +118,7 @@ export const PROJECTS = [
       "Pandas",
       "APIs",
     ],
-    imageUrl: "/images/projects/betting-dashboard-placeholder.svg",
+    imageUrl: "/images/projects/BettingDashboard.png",
     demoUrl: null,
     repoUrl: "https://github.com/BillSteinUNB/bettingDashboard",
     status: "development" as const,
