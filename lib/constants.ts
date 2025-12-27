@@ -69,7 +69,7 @@ export const PROJECTS = [
       "Xcode Cloud",
       "Core Data",
     ],
-    imageUrl: "/images/projects/gymmark-placeholder.svg",
+    imageUrl: "/images/projects/gymmark.png",
     demoUrl: "#contact",
     demoLabel: "Join TestFlight",
     repoUrl: null,
