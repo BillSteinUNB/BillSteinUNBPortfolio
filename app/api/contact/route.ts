@@ -1,7 +1,18 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { z } from "zod";
-import DOMPurify from "isomorphic-dompurify";
+
+// Simple HTML escape function to prevent XSS (avoids jsdom/DOMPurify ESM issues)
+function escapeHtml(text: string): string {
+  const map: Record<string, string> = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;',
+  };
+  return text.replace(/[&<>"']/g, (char) => map[char]);
+}
 
 // Lazily initialize Resend to avoid build-time errors when API key is not set
 const getResendClient = () => {
@@ -42,9 +53,9 @@ export async function POST(request: Request) {
     const { name, email, message } = validationResult.data;
 
     // Sanitize all user inputs to prevent XSS attacks
-    const sanitizedName = DOMPurify.sanitize(name);
-    const sanitizedEmail = DOMPurify.sanitize(email);
-    const sanitizedMessage = DOMPurify.sanitize(message.replace(/\n/g, "<br>"));
+    const sanitizedName = escapeHtml(name);
+    const sanitizedEmail = escapeHtml(email);
+    const sanitizedMessage = escapeHtml(message).replace(/\n/g, "<br>");
 
     // Send email using Resend
     const data = await resend.emails.send({
