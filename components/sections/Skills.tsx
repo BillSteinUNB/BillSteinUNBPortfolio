@@ -26,7 +26,7 @@ export function Skills() {
   };
 
   return (
-    <section id="skills" ref={ref} className="py-20 md:py-32 bg-muted/30">
+    <section id="skills" ref={ref} className="py-20 md:py-32">
       <div className="container px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
