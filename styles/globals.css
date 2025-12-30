@@ -49,3 +49,40 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Optimized blob animations - CSS-based for GPU acceleration */
+@keyframes blob-float-1 {
+  0%, 100% { transform: translate(0, 0) translateZ(0); }
+  50% { transform: translate(60px, -30px) translateZ(0); }
+}
+
+@keyframes blob-float-2 {
+  0%, 100% { transform: translate(0, 0) translateZ(0); }
+  50% { transform: translate(-50px, 60px) translateZ(0); }
+}
+
+@keyframes blob-float-3 {
+  0%, 100% { transform: translate(0, 0) translateZ(0); }
+  50% { transform: translate(30px, -40px) translateZ(0); }
+}
+
+.animate-blob-1 {
+  animation: blob-float-1 20s ease-in-out infinite;
+}
+
+.animate-blob-2 {
+  animation: blob-float-2 25s ease-in-out infinite;
+}
+
+.animate-blob-3 {
+  animation: blob-float-3 18s ease-in-out infinite;
+}
+
+/* Performance optimizations */
+@media (prefers-reduced-motion: reduce) {
+  .animate-blob-1,
+  .animate-blob-2,
+  .animate-blob-3 {
+    animation: none;
+  }
+}

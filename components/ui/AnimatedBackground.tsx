@@ -1,84 +1,72 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
-import { memo, useId } from "react";
+import { memo, useEffect, useState } from "react";
 
 export const AnimatedBackground = memo(function AnimatedBackground() {
-  const shouldReduceMotion = useReducedMotion();
-  const noiseId = useId();
+  const [isMobile, setIsMobile] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
-  const blobTransition = (duration: number) =>
-    shouldReduceMotion
-      ? { duration: 0 }
-      : { duration, repeat: Infinity, ease: "easeInOut" as const };
+  useEffect(() => {
+    // Check for mobile and reduced motion preferences
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    
+    checkMobile();
+    setPrefersReducedMotion(motionQuery.matches);
+
+    window.addEventListener("resize", checkMobile);
+    motionQuery.addEventListener("change", (e) => setPrefersReducedMotion(e.matches));
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
+
+  // Disable animations on mobile or when reduced motion is preferred
+  const shouldAnimate = !isMobile && !prefersReducedMotion;
 
   return (
     <div
       className="fixed inset-0 -z-10 overflow-hidden bg-[#0f172a] pointer-events-none"
+      style={{ contain: "strict" }}
       aria-hidden="true"
     >
-      {/* Blob 1 - Blue */}
-      <motion.div
-        className="absolute top-1/4 -left-20 w-[500px] h-[500px] md:w-[600px] md:h-[600px] rounded-full filter blur-3xl opacity-30"
-        style={{ 
-          willChange: "transform",
-          background: "radial-gradient(circle, rgba(59, 130, 246, 0.8) 0%, transparent 70%)",
+      {/* Blob 1 - Blue - Using CSS animations instead of JS for better performance */}
+      <div
+        className={`absolute top-1/4 -left-20 w-[300px] h-[300px] md:w-[500px] md:h-[500px] rounded-full opacity-30 ${
+          shouldAnimate ? "animate-blob-1" : ""
+        }`}
+        style={{
+          background: "radial-gradient(circle, rgba(59, 130, 246, 0.6) 0%, transparent 70%)",
+          filter: isMobile ? "blur(40px)" : "blur(60px)",
+          transform: "translateZ(0)",
         }}
-        animate={
-          shouldReduceMotion
-            ? { x: 0, y: 0 }
-            : { x: [0, 100, 0], y: [0, -50, 0] }
-        }
-        transition={blobTransition(20)}
       />
 
       {/* Blob 2 - Purple */}
-      <motion.div
-        className="absolute top-1/3 -right-20 w-[500px] h-[500px] md:w-[600px] md:h-[600px] rounded-full filter blur-3xl opacity-30"
-        style={{ 
-          willChange: "transform",
-          background: "radial-gradient(circle, rgba(168, 85, 247, 0.8) 0%, transparent 70%)",
+      <div
+        className={`absolute top-1/3 -right-20 w-[300px] h-[300px] md:w-[500px] md:h-[500px] rounded-full opacity-30 ${
+          shouldAnimate ? "animate-blob-2" : ""
+        }`}
+        style={{
+          background: "radial-gradient(circle, rgba(168, 85, 247, 0.6) 0%, transparent 70%)",
+          filter: isMobile ? "blur(40px)" : "blur(60px)",
+          transform: "translateZ(0)",
         }}
-        animate={
-          shouldReduceMotion
-            ? { x: 0, y: 0 }
-            : { x: [0, -80, 0], y: [0, 100, 0] }
-        }
-        transition={blobTransition(25)}
       />
 
-      {/* Blob 3 - Cyan */}
-      <motion.div
-        className="absolute -bottom-32 left-1/4 w-[500px] h-[500px] md:w-[600px] md:h-[600px] rounded-full filter blur-3xl opacity-25"
-        style={{ 
-          willChange: "transform",
-          background: "radial-gradient(circle, rgba(34, 211, 238, 0.8) 0%, transparent 70%)",
-        }}
-        animate={
-          shouldReduceMotion
-            ? { x: 0, y: 0 }
-            : { x: [0, 50, 0], y: [0, -60, 0] }
-        }
-        transition={blobTransition(18)}
-      />
-
-      {/* Noise texture */}
-      {!shouldReduceMotion && (
-        <svg
-          className="absolute inset-0 w-full h-full opacity-[0.08]"
-          focusable="false"
-        >
-          <defs>
-            <filter id={noiseId}>
-              <feTurbulence
-                type="fractalNoise"
-                baseFrequency="0.8"
-                numOctaves="2"
-              />
-            </filter>
-          </defs>
-          <rect width="100%" height="100%" filter={`url(#${noiseId})`} />
-        </svg>
+      {/* Blob 3 - Cyan - Hidden on mobile for performance */}
+      {!isMobile && (
+        <div
+          className={`absolute -bottom-32 left-1/4 w-[500px] h-[500px] rounded-full opacity-25 ${
+            shouldAnimate ? "animate-blob-3" : ""
+          }`}
+          style={{
+            background: "radial-gradient(circle, rgba(34, 211, 238, 0.6) 0%, transparent 70%)",
+            filter: "blur(60px)",
+            transform: "translateZ(0)",
+          }}
+        />
       )}
     </div>
   );

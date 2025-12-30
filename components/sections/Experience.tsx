@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Briefcase, CheckCircle2 } from "lucide-react";
@@ -10,29 +10,35 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 export function Experience() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
+  const prefersReducedMotion = useReducedMotion();
 
   const container = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: prefersReducedMotion ? 0 : 0.15,
       },
     },
   };
 
   const item = {
-    hidden: { opacity: 0, x: -20 },
-    show: { opacity: 1, x: 0 },
+    hidden: { opacity: 0, x: prefersReducedMotion ? 0 : -20 },
+    show: { opacity: 1, x: 0, transition: { duration: prefersReducedMotion ? 0 : 0.4 } },
   };
 
   return (
-    <section id="experience" ref={ref} className="py-20 md:py-32">
+    <section 
+      id="experience" 
+      ref={ref} 
+      className="py-20 md:py-32"
+      style={{ contain: "layout style" }}
+    >
       <div className="container px-4">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: prefersReducedMotion ? 0 : 20 }}
+          transition={{ duration: prefersReducedMotion ? 0 : 0.6 }}
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">

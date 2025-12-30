@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import { Code2, Briefcase, Award } from "lucide-react";
@@ -8,14 +8,20 @@ import { Code2, Briefcase, Award } from "lucide-react";
 export function About() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const prefersReducedMotion = useReducedMotion();
 
   return (
-    <section id="about" ref={ref} className="py-20 md:py-32">
+    <section 
+      id="about" 
+      ref={ref} 
+      className="py-20 md:py-32"
+      style={{ contain: "layout style" }}
+    >
       <div className="container px-4">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: prefersReducedMotion ? 0 : 20 }}
+          transition={{ duration: prefersReducedMotion ? 0 : 0.6 }}
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">About Me</h2>
@@ -27,9 +33,9 @@ export function About() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Photo */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            initial={{ opacity: 0, x: prefersReducedMotion ? 0 : -50 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: prefersReducedMotion ? 0 : -50 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: prefersReducedMotion ? 0 : 0.2 }}
             className="relative"
           >
             <div className="relative max-w-md mx-auto mb-12">
@@ -38,6 +44,7 @@ export function About() {
                   src="/images/profile.jpg"
                   alt="Bill Stein - Full-Stack Developer"
                   fill
+                  sizes="(max-width: 768px) 100vw, 400px"
                   className="object-cover"
                   priority
                 />
@@ -48,7 +55,9 @@ export function About() {
                   src="/images/dog.jpg"
                   alt="My loyal coding companion"
                   fill
+                  sizes="160px"
                   className="object-cover"
+                  loading="lazy"
                 />
               </div>
             </div>
@@ -63,41 +72,37 @@ export function About() {
 
           {/* Content */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            initial={{ opacity: 0, x: prefersReducedMotion ? 0 : 50 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: prefersReducedMotion ? 0 : 50 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: prefersReducedMotion ? 0 : 0.4 }}
             className="space-y-6"
           >
             <div className="space-y-4 text-lg text-muted-foreground">
               <p>
                 Originally from Stephenville, Newfoundland, I'm a 5th year Computer Science student
                 at the University of New Brunswick, combining 4 academic years with a full year of
-                co-op experience. I've always enjoyed problem solving and building things—and more
+                co-op experience. I've always enjoyed problem solving and building things, and more
                 importantly, fixing them when they break. If a solution doesn't exist the way I like
                 it, I don't mind creating my own.
               </p>
 
               <p>
-                During my time at UNB, I balanced being a university athlete for 4 years while
-                diving deep into tech. I've had the opportunity to work with a professor on
-                AI/ML language dissecting models, which was an incredibly rewarding experience.
-                My professional journey spans full-stack development, IT consulting, and even
-                tree planting—each teaching me valuable lessons about persistence and adaptability.
+                During my time at UNB, I balanced being a varsity swimmer for 4 years while diving
+                deep into tech. I've done a bit of everything: a co-op building internal tools, some
+                AI/ML research with a professor, IT support, and even tree planting. Each one taught
+                me something different about persistence and adaptability.
               </p>
 
               <p>
-                What makes my approach unique? I don't claim to know everything or to be the
-                best at anything. But I will attempt anything and learn step by step if I don't
-                know how. Whether it's front-end development, back-end systems, IT infrastructure,
-                or entirely new domains, I'm driven by curiosity and a willingness to tackle
-                challenges head-on.
+                I don't claim to know everything or to be the best at anything. But I'll attempt
+                anything, and if I don't know how, I'll figure it out step by step. Whether it's
+                front-end, back-end, infrastructure, or something entirely new, I'm driven by
+                curiosity and a willingness to figure things out.
               </p>
 
               <p>
                 When I'm not coding or solving tech problems, you'll find me enjoying the winter
-                weather or spending time with my dog. I've found that the same patience and
-                problem-solving mindset that works in development applies just as well to life
-                outside of tech.
+                weather or spending time with my dog.
               </p>
             </div>
           </motion.div>
@@ -118,9 +123,16 @@ function StatCard({ icon: Icon, value, suffix = "", label }: StatCardProps) {
   const [count, setCount] = useState(0);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     if (isInView) {
+      // Skip animation if reduced motion is preferred
+      if (prefersReducedMotion) {
+        setCount(value);
+        return;
+      }
+
       let start = 0;
       const end = value;
       const duration = 2000;
@@ -138,7 +150,7 @@ function StatCard({ icon: Icon, value, suffix = "", label }: StatCardProps) {
 
       return () => clearInterval(timer);
     }
-  }, [isInView, value]);
+  }, [isInView, value, prefersReducedMotion]);
 
   return (
     <div

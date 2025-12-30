@@ -71,9 +71,9 @@ export function Hero() {
             variants={item}
             className="max-w-2xl text-lg md:text-xl text-muted-foreground"
           >
-            5th year Computer Science student at the University of New
-            Brunswick, passionate about solving problems and building solutions
-            across the full technology stack—from frontend to backend to IT infrastructure.
+            5th year Computer Science student at the University of New Brunswick.
+            I like solving problems and building things, whether that's frontend,
+            backend, or infrastructure.
           </motion.p>
 
           {/* CTA Buttons */}

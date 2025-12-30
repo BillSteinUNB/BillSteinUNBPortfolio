@@ -1,8 +1,8 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, memo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ExternalLink, Github, Smartphone, Layout } from "lucide-react";
@@ -25,57 +25,59 @@ const statusConfig = {
   gallery: { label: "Collection", className: "bg-purple-500/10 text-purple-600 border-purple-500/20" },
 };
 
-function CyclingImage({ images, alt }: { images: string[]; alt: string }) {
+// Optimized cycling image - uses CSS transitions instead of AnimatePresence
+const CyclingImage = memo(function CyclingImage({ images, alt }: { images: string[]; alt: string }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
-    if (images.length <= 1) return;
+    if (images.length <= 1 || prefersReducedMotion) return;
     
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % images.length);
-    }, 3000);
+    }, 4000); // Slightly slower for less frequent re-renders
 
     return () => clearInterval(interval);
-  }, [images.length]);
+  }, [images.length, prefersReducedMotion]);
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={currentIndex}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.5 }}
-        className="absolute inset-0"
-      >
+    <div className="absolute inset-0">
+      {images.map((src, index) => (
         <Image
-          src={images[currentIndex]}
+          key={src}
+          src={src}
           alt={alt}
           fill
-          className="object-cover transition-transform duration-300 hover:scale-105"
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className={`object-cover transition-opacity duration-500 ${
+            index === currentIndex ? "opacity-100" : "opacity-0"
+          }`}
+          loading="lazy"
+          style={{ position: "absolute" }}
         />
-      </motion.div>
-    </AnimatePresence>
+      ))}
+    </div>
   );
-}
+});
 
 export function Portfolio() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
+  const prefersReducedMotion = useReducedMotion();
 
   const container = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: prefersReducedMotion ? 0 : 0.15,
       },
     },
   };
 
   const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 },
+    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20 },
+    show: { opacity: 1, y: 0, transition: { duration: prefersReducedMotion ? 0 : 0.4 } },
   };
 
   const getDemoIcon = (status?: string) => {
@@ -90,12 +92,17 @@ export function Portfolio() {
   };
 
   return (
-    <section id="projects" ref={ref} className="py-20 md:py-32">
+    <section 
+      id="projects" 
+      ref={ref} 
+      className="py-20 md:py-32"
+      style={{ contain: "layout style" }}
+    >
       <div className="container px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: prefersReducedMotion ? 0 : 0.6 }}
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -114,80 +121,76 @@ export function Portfolio() {
         >
           {PROJECTS.map((project) => (
             <motion.div key={project.id} variants={item}>
-              <motion.div
-                whileHover={{ y: -8 }}
-                transition={{ duration: 0.3 }}
-                className="h-full"
-              >
-                <Card className="h-full flex flex-col overflow-hidden">
-                  <div className="relative aspect-video w-full overflow-hidden">
-                    {"showcaseImages" in project && project.showcaseImages ? (
-                      <CyclingImage images={[...project.showcaseImages]} alt={project.title} />
-                    ) : (
-                      <Image
-                        src={project.imageUrl}
-                        alt={project.title}
-                        fill
-                        className="object-cover transition-transform duration-300 hover:scale-105"
-                      />
-                    )}
-                    {project.status && (
-                      <div className="absolute top-3 right-3 z-10">
-                        <span className={`px-2 py-1 text-xs font-medium rounded-full border ${statusConfig[project.status].className}`}>
-                          {statusConfig[project.status].label}
-                        </span>
-                      </div>
-                    )}
-                  </div>
-
-                  <CardHeader>
-                    <CardTitle>{project.title}</CardTitle>
-                    <CardDescription>{project.description}</CardDescription>
-                  </CardHeader>
-
-                  <CardContent className="flex-1">
-                    <div className="flex flex-wrap gap-2">
-                      {project.technologies.map((tech) => (
-                        <Badge key={tech} variant="secondary">
-                          {tech}
-                        </Badge>
-                      ))}
+              <Card className="h-full flex flex-col overflow-hidden group">
+                <div className="relative aspect-video w-full overflow-hidden">
+                  {"showcaseImages" in project && project.showcaseImages ? (
+                    <CyclingImage images={[...project.showcaseImages]} alt={project.title} />
+                  ) : (
+                    <Image
+                      src={project.imageUrl}
+                      alt={project.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  )}
+                  {project.status && (
+                    <div className="absolute top-3 right-3 z-10">
+                      <span className={`px-2 py-1 text-xs font-medium rounded-full border ${statusConfig[project.status].className}`}>
+                        {statusConfig[project.status].label}
+                      </span>
                     </div>
-                  </CardContent>
+                  )}
+                </div>
 
-                  <CardFooter className="gap-3">
-                    {project.demoUrl && (
-                      <Button variant="outline" size="sm" asChild className="flex-1">
-                        <Link
-                          href={project.demoUrl}
-                          target={project.demoUrl.startsWith("http") ? "_blank" : undefined}
-                          rel={project.demoUrl.startsWith("http") ? "noopener noreferrer" : undefined}
-                        >
-                          {getDemoIcon(project.status)}
-                          {"demoLabel" in project ? project.demoLabel : "Demo"}
-                        </Link>
-                      </Button>
-                    )}
-                    {project.repoUrl && (
-                      <Button variant="outline" size="sm" asChild className="flex-1">
-                        <Link
-                          href={project.repoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <Github className="mr-2 h-4 w-4" />
-                          Code
-                        </Link>
-                      </Button>
-                    )}
-                    {!project.demoUrl && !project.repoUrl && (
-                      <div className="flex-1 text-center text-sm text-muted-foreground">
-                        Coming Soon
-                      </div>
-                    )}
-                  </CardFooter>
-                </Card>
-              </motion.div>
+                <CardHeader>
+                  <CardTitle>{project.title}</CardTitle>
+                  <CardDescription>{project.description}</CardDescription>
+                </CardHeader>
+
+                <CardContent className="flex-1">
+                  <div className="flex flex-wrap gap-2">
+                    {project.technologies.map((tech) => (
+                      <Badge key={tech} variant="secondary">
+                        {tech}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardContent>
+
+                <CardFooter className="gap-3">
+                  {project.demoUrl && (
+                    <Button variant="outline" size="sm" asChild className="flex-1">
+                      <Link
+                        href={project.demoUrl}
+                        target={project.demoUrl.startsWith("http") ? "_blank" : undefined}
+                        rel={project.demoUrl.startsWith("http") ? "noopener noreferrer" : undefined}
+                      >
+                        {getDemoIcon(project.status)}
+                        {"demoLabel" in project ? project.demoLabel : "Demo"}
+                      </Link>
+                    </Button>
+                  )}
+                  {project.repoUrl && (
+                    <Button variant="outline" size="sm" asChild className="flex-1">
+                      <Link
+                        href={project.repoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Github className="mr-2 h-4 w-4" />
+                        Code
+                      </Link>
+                    </Button>
+                  )}
+                  {!project.demoUrl && !project.repoUrl && (
+                    <div className="flex-1 text-center text-sm text-muted-foreground">
+                      Coming Soon
+                    </div>
+                  )}
+                </CardFooter>
+              </Card>
             </motion.div>
           ))}
         </motion.div>
