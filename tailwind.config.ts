@@ -19,6 +19,11 @@ const config: Config = {
       },
     },
     extend: {
+      fontFamily: {
+        mono: ['JetBrains Mono', 'ui-monospace', 'SF Mono', 'Fira Code', 
+               'Cascadia Code', 'Consolas', 'monospace'],
+        terminal: ['JetBrains Mono', 'ui-monospace', 'SF Mono', 'monospace'],
+      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
@@ -45,11 +50,43 @@ const config: Config = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
+        // Terminal-specific colors
+        terminal: {
+          green: "hsl(var(--terminal-green))",
+          amber: "hsl(var(--terminal-amber))",
+          red: "hsl(var(--terminal-red))",
+          blue: "hsl(var(--terminal-blue))",
+        },
+        ascii: {
+          border: "hsl(var(--ascii-border))",
+        },
+        code: {
+          bg: "hsl(var(--code-bg))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        none: "0",
+      },
+      borderWidth: {
+        '3': '3px',
+      },
+      // Custom animations for terminal effects
+      animation: {
+        'cursor-blink': 'cursor-blink 1s step-end infinite',
+        'type-cursor': 'type-cursor 1s ease-in-out infinite',
+      },
+      keyframes: {
+        'cursor-blink': {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0' },
+        },
+        'type-cursor': {
+          '0%, 100%': { width: '0' },
+          '50%': { width: '0.5em' },
+        },
       },
     },
   },

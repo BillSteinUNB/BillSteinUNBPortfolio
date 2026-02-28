@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 import "../styles/globals.css";
 import { ThemeProvider } from "@/components/providers";
 import { Header } from "@/components/layout/Header";
@@ -8,7 +8,10 @@ import { Terminal } from "@/components/ui/Terminal";
 import { AnimatedBackground } from "@/components/ui/AnimatedBackground";
 import { SITE_TITLE, SITE_DESCRIPTION, SITE_NAME, EMAIL, PROFESSIONAL_TITLE, SOCIAL_LINKS } from "@/lib/constants";
 
-const inter = Inter({ subsets: ["latin"] });
+const jetbrainsMono = JetBrains_Mono({ 
+  subsets: ["latin"],
+  variable: "--font-jetbrains",
+});
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -99,7 +102,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={inter.className}>
+      <body className={`${jetbrainsMono.variable} font-mono antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

@@ -96,6 +96,7 @@ export const PROJECTS = [
     demoUrl: "#contact",
     demoLabel: "Join TestFlight",
     repoUrl: null,
+    githubRepo: { owner: "BillSteinUNB", name: "gymmark" },
     status: "testflight" as const,
   },
   {
@@ -144,6 +145,7 @@ export const PROJECTS = [
     imageUrl: "/images/projects/BettingDashboard.png",
     demoUrl: "https://betting-dashboard-sand.vercel.app/",
     repoUrl: "https://github.com/BillSteinUNB/bettingDashboard",
+    githubRepo: { owner: "BillSteinUNB", name: "bettingDashboard" },
     status: "development" as const,
   },
   {
@@ -163,6 +165,7 @@ export const PROJECTS = [
     imageUrl: "/images/projects/BoringApp.png",
     demoUrl: null,
     repoUrl: "https://github.com/BillSteinUNB/Boring-App",
+    githubRepo: { owner: "BillSteinUNB", name: "Boring-App" },
     status: "development" as const,
   },
 ] as const;

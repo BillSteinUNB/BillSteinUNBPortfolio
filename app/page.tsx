@@ -1,19 +1,32 @@
 import { Hero } from "@/components/sections/Hero";
-import { About } from "@/components/sections/About";
-import { Skills } from "@/components/sections/Skills";
+import { TechMarquee } from "@/components/ui/TechMarquee";
 import { Portfolio } from "@/components/sections/Portfolio";
-import { Experience } from "@/components/sections/Experience";
-import { Contact } from "@/components/sections/Contact";
+import { NowSection } from "@/components/sections/NowSection";
+import { ASCIIFooter } from "@/components/layout/ASCIIFooter";
+
+const TECH_STACK = [
+  "TypeScript", "React", "Next.js", "Node.js", "Python",
+  "Tailwind CSS", "PostgreSQL", "Docker", "AWS", "Git"
+];
+
+const NOW_FOCUS = {
+  year: 2026,
+  items: [
+    "Building side projects with Next.js and TypeScript",
+    "Exploring AI/ML integration in web apps",
+    "Contributing to open source",
+    "PLACEHOLDER: Add your current focus items here"
+  ]
+};
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <About />
-      <Skills />
+      <TechMarquee technologies={TECH_STACK} />
       <Portfolio />
-      <Experience />
-      <Contact />
+      <NowSection focus={NOW_FOCUS} />
+      <ASCIIFooter />
     </>
   );
 }

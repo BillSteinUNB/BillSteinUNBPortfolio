@@ -25,6 +25,7 @@ export interface Project {
   demoUrl: string | null;
   demoLabel?: string;
   repoUrl: string | null;
+  githubRepo?: { owner: string; name: string };
   status?: "live" | "testflight" | "development" | "gallery";
 }
 

@@ -2,42 +2,66 @@
 @tailwind components;
 @tailwind utilities;
 
+/* =====================================================
+   ASCII/TERMINAL AESTHETIC - Global Styles
+   Font: JetBrains Mono (primary), system mono fallback
+   Theme: Brutalist, minimal, high contrast
+   ===================================================== */
+
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
-    --radius: 0.5rem;
+    /* Light mode - paper/terminal white aesthetic */
+    --background: 0 0% 98%;          /* Off-white, paper-like */
+    --foreground: 0 0% 5%;           /* Near black for contrast */
+    --card: 0 0% 100%;               /* Pure white cards */
+    --card-foreground: 0 0% 5%;
+    --primary: 142 76% 36%;           /* Terminal green */
+    --primary-foreground: 0 0% 100%; /* White on green */
+    --secondary: 0 0% 94%;           /* Light gray */
+    --secondary-foreground: 0 0% 20%;
+    --muted: 0 0% 92%;               /* Subtle gray */
+    --muted-foreground: 0 0% 45%;    /* Medium gray text */
+    --accent: 142 76% 36%;           /* Same as primary for consistency */
+    --accent-foreground: 0 0% 100%;
+    --border: 0 0% 85%;              /* Visible but not harsh */
+    --input: 0 0% 90%;
+    --ring: 142 76% 36%;
+    --radius: 0.125rem;               /* Minimal radius - almost square */
+    
+    /* ASCII-specific variables */
+    --terminal-green: 142 76% 36%;
+    --terminal-amber: 38 92% 50%;     /* Warning/attention */
+    --terminal-red: 0 72% 51%;       /* Error */
+    --terminal-blue: 199 89% 48%;    /* Links */
+    --ascii-border: 0 0% 75%;        /* Dashed borders */
+    --code-bg: 0 0% 96%;             /* Code block background */
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
+    /* Dark mode - classic terminal aesthetic */
+    --background: 0 0% 7%;           /* Deep charcoal, not pure black */
+    --foreground: 0 0% 92%;          /* Off-white, not harsh */
+    --card: 0 0% 10%;                /* Slightly lighter than bg */
+    --card-foreground: 0 0% 92%;
+    --primary: 142 70% 45%;           /* Brighter green for dark */
+    --primary-foreground: 0 0% 5%;   /* Dark text on green */
+    --secondary: 0 0% 15%;           /* Dark gray */
+    --secondary-foreground: 0 0% 85%;
+    --muted: 0 0% 18%;               /* Subtle dark */
+    --muted-foreground: 0 0% 55%;    /* Gray text */
+    --accent: 142 70% 45%;
+    --accent-foreground: 0 0% 5%;
+    --border: 0 0% 22%;              /* Visible borders */
+    --input: 0 0% 15%;
+    --ring: 142 70% 45%;
+    
+    /* ASCII-specific variables - dark mode */
+    --terminal-green: 142 70% 45%;
+    --terminal-amber: 38 89% 55%;
+    --terminal-red: 0 72% 55%;
+    --terminal-blue: 199 89% 55%;
+    --ascii-border: 0 0% 30%;
+    --code-bg: 0 0% 12%;
   }
 }
 
@@ -45,9 +69,152 @@
   * {
     @apply border-border;
   }
-  body {
-    @apply bg-background text-foreground;
+  
+  html {
+    font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', 'Fira Code', 
+                 'Cascadia Code', 'Consolas', monospace;
+    font-feature-settings: 'liga' 1, 'calt' 1; /* Enable ligatures */
   }
+  
+  body {
+    @apply bg-background text-foreground antialiased;
+    letter-spacing: -0.01em; /* Slightly tighter for monospace */
+    line-height: 1.6; /* Better readability for monospace */
+  }
+  
+  /* Improve code/mono text rendering */
+  code, pre, kbd, samp {
+    font-family: inherit; /* Use body font since it's already mono */
+  }
+}
+
+/* =====================================================
+   ASCII/TERMINAL UTILITY CLASSES
+   ===================================================== */
+
+@layer components {
+  /* Terminal-style text with green accent */
+  .terminal-text {
+    @apply font-mono text-primary;
+  }
+  
+  /* ASCII-style dashed borders */
+  .ascii-border {
+    @apply border border-dashed;
+    border-color: hsl(var(--ascii-border));
+  }
+  
+  /* ASCII box with corner decorations */
+  .ascii-box {
+    @apply ascii-border p-4 relative;
+  }
+  
+  .ascii-box::before,
+  .ascii-box::after {
+    content: '+';
+    @apply absolute text-muted-foreground font-bold;
+    font-size: 0.75rem;
+    line-height: 1;
+  }
+  
+  .ascii-box::before {
+    @apply -top-2 -left-1;
+  }
+  
+  .ascii-box::after {
+    @apply -bottom-2 -right-1;
+  }
+  
+  /* Terminal prompt styling */
+  .terminal-prompt {
+    @apply text-primary font-bold;
+  }
+  
+  .terminal-prompt::before {
+    content: '$ ';
+  }
+  
+  /* Cursor blink animation */
+  .cursor-blink {
+    animation: cursor-blink 1s step-end infinite;
+  }
+  
+  /* Code block with ASCII decoration */
+  .code-block {
+    @apply font-mono text-sm p-4 overflow-x-auto;
+    background-color: hsl(var(--code-bg));
+    border-left: 3px solid hsl(var(--primary));
+  }
+  
+  /* Inline code */
+  .inline-code {
+    @apply font-mono text-sm px-1.5 py-0.5 rounded-sm;
+    background-color: hsl(var(--code-bg));
+    border: 1px solid hsl(var(--border));
+  }
+  
+  /* ASCII divider line */
+  .ascii-divider {
+    @apply flex items-center gap-2 text-muted-foreground text-xs;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  
+  .ascii-divider::before,
+  .ascii-divider::after {
+    content: '';
+    @apply flex-1 border-t border-dashed;
+    border-color: hsl(var(--ascii-border));
+  }
+  
+  /* Status indicators */
+  .status-success {
+    @apply text-primary;
+  }
+  
+  .status-warning {
+    color: hsl(var(--terminal-amber));
+  }
+  
+  .status-error {
+    color: hsl(var(--terminal-red));
+  }
+  
+  /* Link with terminal styling */
+  .terminal-link {
+    color: hsl(var(--terminal-blue));
+    @apply underline decoration-dotted underline-offset-2 
+           hover:decoration-solid transition-all;
+  }
+  
+  /* ASCII table styling */
+  .ascii-table {
+    @apply w-full text-sm;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+  
+  .ascii-table th {
+    @apply text-left font-bold border-b border-dashed py-2 px-3;
+    border-color: hsl(var(--ascii-border));
+  }
+  
+  .ascii-table td {
+    @apply py-2 px-3 border-b;
+    border-color: hsl(var(--border));
+  }
+  
+  .ascii-table tr:last-child td {
+    @apply border-b-0;
+  }
+}
+
+/* =====================================================
+   ANIMATIONS
+   ===================================================== */
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 /* Optimized blob animations - CSS-based for GPU acceleration */
@@ -78,11 +245,74 @@
   animation: blob-float-3 18s ease-in-out infinite;
 }
 
+/* ASCII typing animation */
+@keyframes type-cursor {
+  0%, 100% { width: 0; }
+  50% { width: 0.5em; }
+}
+
+/* Scanline effect for terminal sections (optional) */
+.scanlines {
+  position: relative;
+}
+
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    hsl(var(--foreground) / 0.01) 2px,
+    hsl(var(--foreground) / 0.01) 4px
+  );
+  pointer-events: none;
+}
+
 /* Performance optimizations */
 @media (prefers-reduced-motion: reduce) {
   .animate-blob-1,
   .animate-blob-2,
-  .animate-blob-3 {
+  .animate-blob-3,
+  .cursor-blink {
     animation: none;
   }
+}
+
+/* =====================================================
+   SELECTION STYLING
+   ===================================================== */
+
+::selection {
+  background-color: hsl(var(--primary) / 0.3);
+  color: hsl(var(--foreground));
+}
+
+/* =====================================================
+   SCROLLBAR STYLING (Minimal)
+   ===================================================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 0; /* Square corners for brutalist */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--border)) hsl(var(--muted));
 }
